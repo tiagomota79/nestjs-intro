@@ -29,8 +29,9 @@ export class ProductsService {
     return insertedProduct;
   }
 
-  getProducts() {
-    return [...this.products];
+  async getProducts() {
+    const allProducts = await this.productModel.find();
+    return allProducts;
   }
 
   private findProduct(productId: string): [Product, number] {
