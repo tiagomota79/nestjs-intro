@@ -52,16 +52,13 @@ export class ProductsController {
       prodDesc,
       prodPrice,
     );
-    // const updatedProduct = await this.productsService.getSingleProduct(
-    //   productId,
-    // );
 
     return updatedProduct;
   }
 
-  // @Delete(':productId')
-  // removeProduct(@Param('productId') productId: string) {
-  //   this.productsService.deleteProduct(productId);
-  //   return 'Product successfully deleted';
-  // }
+  @Delete(':productId')
+  async removeProduct(@Param('productId') productId: string) {
+    await this.productsService.deleteProduct(productId);
+    return 'Product successfully deleted';
+  }
 }

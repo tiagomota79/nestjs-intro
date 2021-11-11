@@ -70,9 +70,9 @@ export class ProductsService {
     return updatedProduct;
   }
 
-  // deleteProduct(productId: string) {
-  //   const [_, index] = this.findProduct(productId);
-
-  //   this.products.splice(index, 1);
-  // }
+  async deleteProduct(productId: string) {
+    const result = await this.productModel.deleteOne({ _id: productId });
+    if (result.deletedCount === 0)
+      throw new NotFoundException('Product not found');
+  }
 }
