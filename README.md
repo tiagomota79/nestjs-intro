@@ -42,7 +42,7 @@ Creates a new product. Requires `title` (String), `description` (String) and `pr
 {
   "title": "Product Title",
   "description": "Product description",
-  "price": 00
+  "price": 00,
 }
 ```
 
