@@ -24,7 +24,33 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Small CRUD API made with [Nest](https://github.com/nestjs/nest), [MongoDB](https://www.mongodb.com) with [Mongoose](https://mongoosejs.com) and TypeScript. Made for training purposes.
+
+Started with Nest framework TypeScript starter repository.
+
+## Endpoints
+
+Contains only one endpoint `/products` with these requests:
+
+### `Get`
+Returns all products on DB.
+
+### `Post`
+Creates a new product. Requires `title` (String), `description` (String) and `price` (Number):
+
+```json
+{
+  "title": "Product Title",
+  "description": "Product description",
+  "price": 00
+}
+```
+
+### `Patch` `/:id`
+Updates the product. Requires `id` as url param, and at least one of the attributes to be updated.
+
+### `Delete` `/:id`
+Deletes the product. Requires `id` as url param.
 
 ## Installation
 
