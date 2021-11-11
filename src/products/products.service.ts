@@ -34,40 +34,45 @@ export class ProductsService {
     return allProducts;
   }
 
-  private findProduct(productId: string): [Product, number] {
-    const productIndex = this.products.findIndex(
-      (product) => product.id === productId,
-    );
-    const product = this.products[productIndex];
+  private async findProduct(productId: string): Promise<Product> {
+    let product;
+    try {
+      product = await this.productModel.findById(productId);
+      console.log(product);
+    } catch (error) {
+      if (!product) throw new NotFoundException('Product not found.');
+    }
+
     if (!product) throw new NotFoundException('Product not found.');
 
-    return [product, productIndex];
+    return product;
   }
 
-  getSingleProduct(productId: string) {
-    const product = this.findProduct(productId)[0];
-    return { ...product };
+  async getSingleProduct(productId: string) {
+    const product = await this.findProduct(productId);
+    return product;
   }
 
-  updateProduct(
+  async updateProduct(
     productId: string,
     title: string,
     description: string,
     price: number,
   ) {
-    const [product, index] = this.findProduct(productId);
-    const updatedProduct = { ...product };
+    const updatedProduct = await this.findProduct(productId);
 
     if (title) updatedProduct.title = title;
     if (description) updatedProduct.description = description;
     if (price) updatedProduct.price = price;
 
-    this.products[index] = updatedProduct;
+    updatedProduct.save();
+
+    return updatedProduct;
   }
 
-  deleteProduct(productId: string) {
-    const [_, index] = this.findProduct(productId);
+  // deleteProduct(productId: string) {
+  //   const [_, index] = this.findProduct(productId);
 
-    this.products.splice(index, 1);
-  }
+  //   this.products.splice(index, 1);
+  // }
 }

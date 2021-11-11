@@ -28,35 +28,40 @@ export class ProductsController {
   }
 
   @Get()
-  getAllProducts() {
-    return this.productsService.getProducts();
+  async getAllProducts() {
+    const allProducts = await this.productsService.getProducts();
+    return allProducts;
   }
 
   @Get(':productId')
-  getProduct(@Param('productId') productId: string) {
-    return this.productsService.getSingleProduct(productId);
+  async getProduct(@Param('productId') productId: string) {
+    const product = await this.productsService.getSingleProduct(productId);
+    return product;
   }
 
   @Patch(':productId')
-  updateProduct(
+  async updateProduct(
     @Param('productId') productId: string,
     @Body('title') prodTitle: string,
     @Body('description') prodDesc: string,
     @Body('price') prodPrice: number,
   ) {
-    this.productsService.updateProduct(
+    const updatedProduct = await this.productsService.updateProduct(
       productId,
       prodTitle,
       prodDesc,
       prodPrice,
     );
+    // const updatedProduct = await this.productsService.getSingleProduct(
+    //   productId,
+    // );
 
-    return this.productsService.getSingleProduct(productId);
+    return updatedProduct;
   }
 
-  @Delete(':productId')
-  removeProduct(@Param('productId') productId: string) {
-    this.productsService.deleteProduct(productId);
-    return 'Product successfully deleted';
-  }
+  // @Delete(':productId')
+  // removeProduct(@Param('productId') productId: string) {
+  //   this.productsService.deleteProduct(productId);
+  //   return 'Product successfully deleted';
+  // }
 }
